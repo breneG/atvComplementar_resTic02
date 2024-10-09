@@ -10,7 +10,7 @@ class CategoriaSerializer(serializers.HyperlinkedModelSerializer):
     
     class Meta:
         model = Categoria
-        fields = ("nome")
+        fields = ["nome", "livros"]
         
 class AutorSerializer(serializers.HyperlinkedModelSerializer):
     livros = serializers.HyperlinkedRelatedField(
@@ -21,22 +21,25 @@ class AutorSerializer(serializers.HyperlinkedModelSerializer):
     
     class Meta:
         model = Autor
-        fields = ("nome")
+        fields = ["nome", "livros"]
         
 class LivroSerializer(serializers.HyperlinkedModelSerializer):
     categoria = serializers.SlugRelatedField(
-        queryset = Categoria.objects.all(), slug_field = "name"
+        queryset = Categoria.objects.all(), 
+        slug_field = "nome"
     )
     autor = serializers.SlugRelatedField(
-        queryset = Autor.objects.all(), slug_field = "name"
+        queryset = Autor.objects.all(), 
+        slug_field = "nome"
     )
     
     class Meta:
-        fields = (
+        model = Livro
+        fields = [
             "titulo",
             "autor",
             "categoria",
             "publicado_em"
-        )
+        ]
 
  
