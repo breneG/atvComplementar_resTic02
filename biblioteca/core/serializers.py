@@ -1,5 +1,5 @@
 from rest_framework import serializers 
-from core.models import Categoria, Autor, Livro
+from core.models import Categoria, Autor, Livro, Colecao
 
 class CategoriaSerializer(serializers.HyperlinkedModelSerializer):
     livros = serializers.HyperlinkedRelatedField(
@@ -42,4 +42,18 @@ class LivroSerializer(serializers.HyperlinkedModelSerializer):
             "publicado_em"
         ]
 
+class ColecaoSerializer(serializers.HyperlinkedModelSerializer):
+    livros = LivroSerializer(many=True, read_only=True)
+    colecionador = serializers.SlugRelatedField(read_only=True)
+    
+    class Meta:
+        model = Colecao
+        fields = [
+            "nome",
+            "descricao",
+            "livro",
+            "colecionador",
+        ]
+        
+    
  
