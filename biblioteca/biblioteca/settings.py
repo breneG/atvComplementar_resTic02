@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'core.apps.CoreConfig',  
     'django_filters', 
     'rest_framework.authtoken',
-    'drf_pectacular', 
+    'drf_spectacular', 
 ]
 
 MIDDLEWARE = [
@@ -138,8 +138,19 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
     ),
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
+SPECTACULAR_SETTINGS = {
+	"TITLE": "RESTIC Biblioteca API",
+	"DESCRIPTION": "Exercício prático III - Back-end com Python e DjangoRF",
+	"VERSION": "1.0.0",
+	"SERVE INCLUDE SCHEMA": False,
+    "AUTHENTICATION_WHITELIST": [
+        "rest_framework.authentication.TokenAuthentication",
+    ],
+    "SWAGGER_UI_SETTINGS": {
+        "persistAuthorization": True, 
+    },
+}
