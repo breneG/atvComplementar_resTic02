@@ -5,6 +5,8 @@ from .serializers import CategoriaSerializer, AutorSerializer, LivroSerializer, 
 from .filters import CategoriaFilter, AutorFilter, LivroFilter
 from rest_framework import permissions
 from core import custom_permissions
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
 
 class CategoriaList(generics.ListCreateAPIView):
     queryset = Categoria.objects.all()
@@ -51,6 +53,9 @@ class ColecaoListCreate(generics.ListCreateAPIView):
     serializer_class = ColecaoSerializer
     name = "colecao-list"
 
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
     permission_classes = (
         permissions.IsAuthenticatedOrReadOnly,
         custom_permissions.IsCurrentUserOwnerOrReadOnly,
@@ -63,6 +68,9 @@ class ColecaoDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Colecao.objects.all()
     serializer_class = ColecaoSerializer
     name = "colecao-detail"
+    
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
     
     permission_classes = (
         permissions.IsAuthenticatedOrReadOnly,

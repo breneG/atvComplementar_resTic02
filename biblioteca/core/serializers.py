@@ -43,15 +43,19 @@ class LivroSerializer(serializers.HyperlinkedModelSerializer):
         ]
 
 class ColecaoSerializer(serializers.HyperlinkedModelSerializer):
-    livros = LivroSerializer(many=True, read_only=True)
-    colecionador = serializers.SlugRelatedField(read_only=True)
+    livros = serializers.HyperlinkedRelatedField(
+        many=True, 
+        read_only=True,
+        view_name = "livro-detail"
+    )
+    colecionador = serializers.StringRelatedField(read_only=True)
     
     class Meta:
         model = Colecao
         fields = [
             "nome",
             "descricao",
-            "livro",
+            "livros",
             "colecionador",
         ]
         
